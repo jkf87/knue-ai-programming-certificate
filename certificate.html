@@ -1,0 +1,186 @@
+<html>
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+        
+        .certificate-container {
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .certificate {
+            width: 800px;
+            position: relative;
+            padding: 40px;
+            text-align: center;
+            background: white;
+        }
+        .border-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid #c4a962;
+            pointer-events: none;
+        }
+        .corner {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: url('https://raw.githubusercontent.com/jkf87/auto-certificated/main/corner.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .top-left { top: -10px; left: -10px; }
+        .top-right { top: -10px; right: -10px; transform: rotate(90deg); }
+        .bottom-left { bottom: -10px; left: -10px; transform: rotate(-90deg); }
+        .bottom-right { bottom: -10px; right: -10px; transform: rotate(180deg); }
+        
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: #000;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+        .content-container {
+            display: flex;
+            align-items: center;
+            margin: 40px 0;
+        }
+        .character-image {
+            width: 150px;
+            height: 150px;
+            margin-right: 40px;
+        }
+        .certificate-content {
+            text-align: left;
+            flex: 1;
+        }
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #000;
+            border-bottom: 2px solid #c4a962;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .course-title {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 60px;
+        }
+        .signature {
+            text-align: center;
+            flex: 1;
+        }
+        .sign-line {
+            width: 200px;
+            height: 1px;
+            background: #000;
+            margin: 10px auto;
+        }
+        .institute-logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 10px;
+        }
+        .date {
+            font-size: 16px;
+            color: #666;
+        }
+        .course-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0 10px 0;
+        }
+        .course-name-en {
+            font-size: 20px;
+            color: #666;
+            font-style: italic;
+        }
+        .institute-name {
+            font-size: 22px;
+            color: #333;
+            margin-top: 15px;
+        }
+        .institute-name-en {
+            font-size: 18px;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate-container">
+        <div class="certificate">
+            <div class="border-frame"></div>
+            <div class="corner top-left"></div>
+            <div class="corner top-right"></div>
+            <div class="corner bottom-left"></div>
+            <div class="corner bottom-right"></div>
+            
+            <h1 class="title">Certificate</h1>
+            <div class="subtitle">of Achievement</div>
+            
+            <div class="content-container">
+                <img id="characterSprite" class="character-image">
+                <div class="certificate-content">
+                    <div class="name" id="playerName"></div>
+                    <div class="course-title">has Successfully completed</div>
+                    <div class="course-name">
+                        인공지능 프로그래밍 1<br>
+                        <span class="course-name-en">AI Programming 1</span>
+                    </div>
+                    <div class="institute-name">
+                        한국교원대학교<br>
+                        <span class="institute-name-en">Korea National University of Education</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <div class="signature">
+                    <div class="sign-line"></div>
+                    <div>TEACHER</div>
+                </div>
+                <div class="signature">
+                    <img src="https://raw.githubusercontent.com/jkf87/auto-certificated/main/logo.png" class="institute-logo">
+                    <div>conanssam</div>
+                    <div class="date" id="date"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addEventListener('message', function(e) {
+            const data = e.data;
+            if (data.type === 'certificate') {
+                document.getElementById('characterSprite').src = data.spriteUrl;
+                document.getElementById('playerName').innerText = data.playerName + " 님";
+                document.getElementById('date').innerText = data.date;
+            }
+        });
+    </script>
+</body>
+</html> 
